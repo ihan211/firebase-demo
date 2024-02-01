@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "fir-demo-eb75c",
+    "staging": "fir-demo-eb75c"
+  },
+  "targets": {},
+  "etags": {}
+}

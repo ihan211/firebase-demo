@@ -1,0 +1,18 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /messages/{message} {
+      // Note: these are extremely basic rules but these rules are NOT secure enough
+      // for a production chat app.
+     allow read: if true; // Allow everyone to read messages (adjust as needed)
+      allow write: if request.auth != null && 
+                    request.resource.data.uid == request.auth.uid && // User can only write their own messages
+                    request.resource.data.email != null && 
+                    request.resource.data.displayName != null && 
+                    request.resource.data.createdAt != null && 
+                    request.resource.data.text != null && 
+                    request.resource.data.keys().hasOnly(['uid', 'email', 'displayName', 'createdAt', 'text']);
+		}
+  }
+}
